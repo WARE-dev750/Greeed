@@ -20,6 +20,7 @@ export const SOCKET_EVENTS = {
   RECEIVE_MESSAGE: 'chat:receive',
 
   // Choice phase
+  SELECT_TENTATIVE: 'game:select_tentative',
   SUBMIT_CHOICE: 'game:submit_choice',
   CHOICE_LOCKED: 'game:choice_locked',
   MATCH_RESULT: 'game:result',

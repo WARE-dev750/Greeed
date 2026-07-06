@@ -1,6 +1,7 @@
 import { Server, Socket } from 'socket.io';
 import http from 'http';
 import { handleMatchmaking } from './matchmaking.socket';
+import { handleMatch } from './match.socket';
 
 export let io: Server;
 
@@ -30,8 +31,9 @@ export function initSocketServer(server: http.Server) {
     userSocketMap.set(userId, socket.id);
     socketUserMap.set(socket.id, userId);
 
-    // Initialize matchmaking listener for this user
+    // Initialize matchmaking & match listeners for this user
     handleMatchmaking(io, socket, userId, username || 'Anonymous');
+    handleMatch(io, socket, userId);
 
     socket.on('disconnect', () => {
       console.log(`User disconnected: ${userId}`);

@@ -1,6 +1,7 @@
 import { Server, Socket } from 'socket.io';
 import { prisma } from '@greeed/database';
 import { SOCKET_EVENTS, getRankFromElo } from '@greeed/shared';
+import { startMatch } from './match.socket';
 
 interface QueuePlayer {
   userId: string;
@@ -125,6 +126,9 @@ async function checkForMatches(io: Server) {
 
         const playerAProfile = getStats(userA);
         const playerBProfile = getStats(userB);
+
+        // Start the in-memory match states and countdown timer loops
+        startMatch(io, match.id, playerAProfile, playerBProfile);
 
         if (socketA) {
           socketA.emit(SOCKET_EVENTS.MATCH_FOUND, {
