@@ -67,7 +67,7 @@ export default function LobbyPage() {
             <button 
               className="btn-danger" 
               style={{ marginTop: "20px" }}
-              onClick={() => socket.emit(SOCKET_EVENTS.LEAVE_QUEUE)}
+              onClick={() => socket?. emit(SOCKET_EVENTS.LEAVE_QUEUE)}
             >
               Cancel Matchmaking
             </button>
@@ -76,7 +76,7 @@ export default function LobbyPage() {
           <button 
             className="btn-primary pulse" 
             style={{ width: "100%", padding: "16px", fontSize: "1.2rem" }}
-            onClick={() => socket.emit(SOCKET_EVENTS.JOIN_QUEUE)}
+            onClick={() => socket?. emit(SOCKET_EVENTS.JOIN_QUEUE)}
           >
             Find Match
           </button>
