@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Local databases
+*.db
+*.db-journal
+
+# Next.js build output
+.next/
+
+# Compiled TS output
+dist/
+
+# Env files
+.env
+.env.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS Files
+.DS_Store

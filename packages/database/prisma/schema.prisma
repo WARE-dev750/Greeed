@@ -1,0 +1,67 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                  String   @id @default(uuid())
+  username            String   @unique
+  passwordHash        String
+  elo                 Int      @default(1000)
+  coins               Int      @default(1000)
+  createdAt           DateTime @default(now())
+
+  // Stats
+  splitCount          Int      @default(0)
+  stealCount          Int      @default(0)
+  betrayedOthersCount Int      @default(0)
+  beenBetrayedCount   Int      @default(0)
+  mutualTrustCount    Int      @default(0)
+  mutualGreedCount    Int      @default(0)
+  longestTrustStreak  Int      @default(0)
+  currentTrustStreak  Int      @default(0)
+  biggestSteal        Int      @default(0)
+  biggestLoss         Int      @default(0)
+
+  // Matches
+  matchesAsPlayer1    Match[]  @relation("Player1Matches")
+  matchesAsPlayer2    Match[]  @relation("Player2Matches")
+  chatMessages        ChatMessage[]
+}
+
+model Match {
+  id                String        @id @default(uuid())
+  player1Id         String
+  player2Id         String
+  player1           User          @relation("Player1Matches", fields: [player1Id], references: [id])
+  player2           User          @relation("Player2Matches", fields: [player2Id], references: [id])
+  
+  player1Choice     String?       // "SPLIT" or "STEAL"
+  player2Choice     String?       // "SPLIT" or "STEAL"
+  status            String        @default("CHAT") // "CHAT", "DECISION", "REVEALED"
+
+  payout1           Int?
+  payout2           Int?
+  eloChange1        Int?
+  eloChange2        Int?
+  vaultContribution Int?          // Coins going to public vault if both steal
+
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  messages          ChatMessage[]
+}
+
+model ChatMessage {
+  id        String   @id @default(uuid())
+  matchId   String
+  match     Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  senderId  String
+  sender    User     @relation(fields: [senderId], references: [id])
+  text      String
+  createdAt DateTime @default(now())
+}
