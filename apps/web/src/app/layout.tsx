@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { SocketProvider } from "../hooks/useSocket";
-import "../styles/globals.css";
+import { Providers } from "@/components/Providers";
+import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   title: "Split or Steal Arena",
@@ -10,16 +10,16 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <body>
-        <SocketProvider>
+        <Providers>
           <main style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
             {children}
           </main>
-        </SocketProvider>
+        </Providers>
       </body>
     </html>
   );
