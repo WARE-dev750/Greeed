@@ -18,22 +18,20 @@ export default function LandingPage() {
   const handleJoin = (e: React.FormEvent) => {
     e.preventDefault();
     if (!username.trim()) return;
-
     const id = "user-" + Math.random().toString(36).substring(2, 10);
     connect(id, username);
   };
 
   return (
     <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <div className="glass-panel" style={{ padding: "40px", maxWidth: "400px", width: "100%", textAlign: "center" }}>
-        <h1 style={{ marginBottom: "10px", fontSize: "2.5rem", color: "var(--text-primary)", fontWeight: "bold" }}>
+      <div className="glass-panel" style={{ padding: "48px", maxWidth: "420px", width: "100%", textAlign: "center" }}>
+        <h1 style={{ marginBottom: "8px", fontSize: "2.8rem", fontWeight: "bold", letterSpacing: "-1px" }}>
           Split or Steal
         </h1>
-        <p style={{ color: "var(--primary)", marginBottom: "30px", fontWeight: 600 }}>
+        <p style={{ color: "var(--primary)", marginBottom: "36px", fontWeight: 600, fontSize: "1rem" }}>
           Can you trust the person in front of you?
         </p>
-        
-        <form onSubmit={handleJoin} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+        <form onSubmit={handleJoin} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
           <input
             type="text"
             placeholder="Enter your alias"
@@ -42,9 +40,9 @@ export default function LandingPage() {
             className="input-field"
             maxLength={20}
             required
-            style={{ textAlign: "center", fontSize: "1.2rem" }}
+            style={{ textAlign: "center", fontSize: "1.1rem" }}
           />
-          <button type="submit" className="btn-primary" style={{ fontSize: "1.2rem", marginTop: "10px" }}>
+          <button type="submit" className="btn-primary" style={{ fontSize: "1.1rem", marginTop: "8px" }}>
             Enter Arena
           </button>
         </form>
@@ -52,4 +50,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
